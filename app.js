@@ -4,14 +4,14 @@ const tasks = require("./routes/tasks");
 const connectDB = require("./db/connect");
 require("dotenv").config();
 const bodyParser = require("body-parser");
+const notFound = require("./middleware/not-found");
 
 //middleware
 app.use(express.json()); //to convert all the incoming request into json
 app.use(bodyParser.json());
-
 //routes
 app.use("/api/v1/tasks",tasks); 
-
+app.use(notFound);
 const start = async() => {
     try {
         await connectDB(process.env.MONGO_URI);
